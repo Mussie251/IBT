@@ -1,0 +1,186 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f6f6f6;
+  color: #222;
+}
+
+/* HEADER */
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 8%;
+  background-color: white;
+  border-bottom: 1px solid #ddd;
+}
+
+.logo h1 {
+  margin: 0;
+}
+
+.logo p {
+  margin: 5px 0 0;
+  color: #666;
+}
+
+.nav {
+  display: flex;
+  gap: 20px;
+}
+
+.nav a {
+  color: #222;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+/* MAIN LAYOUT */
+
+.main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 50px 20px;
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+  gap: 30px;
+}
+
+/* MENU */
+
+.section-heading {
+  margin-bottom: 30px;
+}
+
+.eyebrow {
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.section-heading h2 {
+  margin: 8px 0;
+  font-size: 32px;
+}
+
+.dish-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+/* DISH CARDS */
+
+.dish-card {
+  background-color: white;
+  border: 1px solid #e5e5e5;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.dish-image {
+  height: 140px;
+  display: grid;
+  place-items: center;
+  background-color: #eee;
+  font-size: 50px;
+}
+
+.dish-content {
+  padding: 20px;
+}
+
+.dish-content h3 {
+  margin: 0 0 10px;
+}
+
+.dish-content p {
+  color: #666;
+  line-height: 1.5;
+}
+
+.dish-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.dish-tag {
+  font-size: 12px;
+  padding: 5px 10px;
+  background-color: #eee;
+  border-radius: 20px;
+}
+
+/* SIDEBAR */
+
+.sidebar {
+  background-color: white;
+  padding: 25px;
+  border-radius: 12px;
+  height: fit-content;
+  border: 1px solid #e5e5e5;
+}
+
+.sidebar h2 {
+  margin-top: 0;
+}
+
+.sidebar ul {
+  padding-left: 0;
+  list-style: none;
+}
+
+.sidebar li {
+  padding: 12px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.sidebar-box {
+  margin-top: 25px;
+  padding-top: 20px;
+}
+
+/* FOOTER */
+
+.footer {
+  padding: 40px 20px;
+  text-align: center;
+  background-color: white;
+  border-top: 1px solid #ddd;
+}
+
+.footer h2 {
+  margin-top: 0;
+}
+
+/* MOBILE */
+
+@media (max-width: 800px) {
+  .header {
+    flex-direction: column;
+    gap: 15px;
+    text-align: center;
+  }
+
+  .main {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .dish-list {
+    grid-template-columns: 1fr;
+  }
+
+  .nav {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
