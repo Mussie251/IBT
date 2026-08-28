@@ -1,28 +1,20 @@
-function Dish({ name, price, category, spicy, image }) {
+import PropTypes from "prop-types";
+
+function Dish({ name, price, spicy = false }) {
   return (
-    <article className="dish-card">
-      <img
-        className="dish-image"
-        src={image}
-        alt={name}
-      />
+    <div className="dish">
+      <h3>{name}</h3>
+      <p>{price} ETB</p>
 
-      <div className="dish-content">
-        <div className="dish-header">
-          <span className="dish-category">{category}</span>
-
-          {spicy && <span className="spicy">🌶 Spicy</span>}
-        </div>
-
-        <h3>{name}</h3>
-
-        <div className="dish-bottom">
-          <strong>{price} ETB</strong>
-          <span>Popular Choice</span>
-        </div>
-      </div>
-    </article>
+      {spicy && <span>🌶 Spicy</span>}
+    </div>
   );
 }
+
+Dish.propTypes = {
+  name: PropTypes.string.isRequired,
+  price: PropTypes.number.isRequired,
+  spicy: PropTypes.bool,
+};
 
 export default Dish;
