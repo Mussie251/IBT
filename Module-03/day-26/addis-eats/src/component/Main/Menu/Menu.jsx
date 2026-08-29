@@ -1,24 +1,41 @@
-import Dish from "../Dish/Dish";
+import { useState } from "react";
+import CategoryBar from "./CategoryBar";
+import DishList from "./DishList";
 
-function Menu({ dishes, category }) {
-  const filteredDishes = dishes.filter((dish) =>
-    category === "All" ? true : dish.category === category
-  );
+function Menu({ dishes }) {
+  const [category, setCategory] = useState("All");
+  const [total, setTotal] = useState(0);
 
-  if (filteredDishes.length === 0) {
-    return <p>No dishes found in this category.</p>;
+  const categories = [
+    "All",
+    ...new Set(dishes.map((dish) => dish.category)),
+  ];
+
+  const filteredDishes =
+    category === "All"
+      ? dishes
+      : dishes.filter((dish) => dish.category === category);
+
+  function handleAdd(price) {
+    setTotal((prevTotal) => prevTotal + price);
   }
+
+  console.log("Menu state:", { category, total });
 
   return (
     <section>
-      {filteredDishes.map((dish) => (
-        <Dish
-          key={dish.id}
-          name={dish.name}
-          price={Number(dish.price)}
-          spicy={dish.spicy}
-        />
-      ))}
+      <CategoryBar
+        categories={categories}
+        selectedCategory={category}
+        onSelect={setCategory}
+      />
+
+      <DishList
+        dishes={filteredDishes}
+        onAdd={handleAdd}
+      />
+
+      <h2>Total: {total.toLocaleString()} ETB</h2>
     </section>
   );
 }

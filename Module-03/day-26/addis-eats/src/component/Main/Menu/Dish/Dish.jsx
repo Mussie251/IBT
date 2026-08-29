@@ -1,20 +1,26 @@
-import PropTypes from "prop-types";
+import { useState } from "react";
 
-function Dish({ name, price, spicy = false }) {
+function Dish({ name, price, spicy, onAdd }) {
+  const [count, setCount] = useState(0);
+
+  function handleAdd() {
+    setCount((prevCount) => prevCount + 1);
+    onAdd(price);
+  }
+
   return (
-    <div className="dish">
+    <article>
       <h3>{name}</h3>
-      <p>{price} ETB</p>
 
-      {spicy && <span>🌶 Spicy</span>}
-    </div>
+      <p>
+        {price} ETB {spicy && "🌶️"}
+      </p>
+
+      <button onClick={handleAdd}>Add</button>
+
+      {count > 0 && <p>Added: {count}</p>}
+    </article>
   );
 }
-
-Dish.propTypes = {
-  name: PropTypes.string.isRequired,
-  price: PropTypes.number.isRequired,
-  spicy: PropTypes.bool,
-};
 
 export default Dish;

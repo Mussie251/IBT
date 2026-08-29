@@ -1,7 +1,9 @@
+import dishes from "./data/menu.json";
 import Header from "./component/Header/Header.jsx";
 import Main from "./component/Main/Main.jsx";
 import Footer from "./component/Footer/Footer.jsx";
 import Card from "./component/Card/Card.jsx";
+import OrderForm from "./component/OrderForm/OrderForm";
 
 function App() {
   return (
@@ -13,7 +15,8 @@ function App() {
         <p>Welcome to our delicious Ethiopian menu.</p>
       </Card>
 
-      <Main />
+      <Main dishes={dishes} />
+      <OrderForm />
       <Footer />
     </div>
   );

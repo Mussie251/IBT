@@ -1,11 +1,11 @@
 import Menu from "./Menu/Menu.jsx";
-import Sidebar from "./Sidebar/Sidebar.jsx";
+import SideBar from "./SideBar/SideBar.jsx";
 
-function Main() {
+function Main({ dishes }) {
   return (
     <main className="main">
-      <Menu />
-      <Sidebar />
+      <Menu dishes={dishes} category="All" />
+      <SideBar />
     </main>
   );
 }
