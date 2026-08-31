@@ -1,0 +1,21 @@
+body {
+  font-family: Arial, sans-serif;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+#users-container {
+  display: grid;
+  gap: 15px;
+}
+
+.user-card {
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+
+.user-card h2 {
+  margin-top: 0;
+}

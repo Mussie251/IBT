@@ -1,0 +1,7 @@
+.products {
+  background-color: green;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 200px);
+  
+
+}
