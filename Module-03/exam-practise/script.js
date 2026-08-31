@@ -1,4 +1,5 @@
 const usersContainer = document.getElementById("users-container");
+const searchInput = document.getElementById("search-input");
 
 async function getUsers() {
   usersContainer.innerHTML = "<p>Loading users...</p>";
@@ -31,3 +32,9 @@ async function getUsers() {
 }
 
 getUsers();
+
+
+searchInput.addEventListener("input", function () {
+  console.log(searchInput.value);
+});
+
