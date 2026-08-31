@@ -1,6 +1,8 @@
 const usersContainer = document.getElementById("users-container");
 const searchInput = document.getElementById("search-input");
 
+let users = [];
+
 async function getUsers() {
   usersContainer.innerHTML = "<p>Loading users...</p>";
 
@@ -11,7 +13,7 @@ async function getUsers() {
     throw new Error("Failed to fetch users");
   }
 
-  const users = await response.json();
+   users = await response.json();
 
   usersContainer.innerHTML = users.map(
     (user) => `
@@ -35,6 +37,21 @@ getUsers();
 
 
 searchInput.addEventListener("input", function () {
-  console.log(searchInput.value);
+  const searchTerm = searchInput.value;
+
+  const filteredUsers = users.filter((user) => {
+  return user.name.toLowerCase().includes(searchTerm.toLowerCase());
+
+});
+
+usersContainer.innerHTML = filteredUsers.map(
+  (user) => `
+     <div class="user-card">
+       <h2>${user.name}</h2>
+       <p>${user.email}</p>
+     </div>
+     `
+)
+.join("");
 });
 
