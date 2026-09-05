@@ -1,42 +1,85 @@
-import { useState } from "react";
-import CategoryBar from "./CategoryBar";
-import DishList from "./DishList";
+import { useMemo, useState } from "react";
+import useFetch from "../../../hooks/useFetch";
+import { useCart } from "../../../cart/cartProvider";
 
-function Menu({ dishes }) {
+function Menu() {
+  const { data, loading, error } = useFetch("/src/data/menu.json");
+  const { items, dispatch, total } = useCart();
+
   const [category, setCategory] = useState("All");
-  const [total, setTotal] = useState(0);
 
-  const categories = [
-    "All",
-    ...new Set(dishes.map((dish) => dish.category)),
-  ];
+  const categories = useMemo(() => {
+    return ["All", ...new Set(data.map((dish) => dish.category))];
+  }, [data]);
 
-  const filteredDishes =
-    category === "All"
-      ? dishes
-      : dishes.filter((dish) => dish.category === category);
+  const filteredDishes = useMemo(() => {
+    if (category === "All") {
+      return data;
+    }
 
-  function handleAdd(price) {
-    setTotal((prevTotal) => prevTotal + price);
+    return data.filter((dish) => dish.category === category);
+  }, [data, category]);
+
+  if (loading) {
+    return <p>Loading menu...</p>;
   }
 
-  console.log("Menu state:", { category, total });
+  if (error) {
+    return <p>Error loading menu: {error.message}</p>;
+  }
 
   return (
-    <section>
-      <CategoryBar
-        categories={categories}
-        selectedCategory={category}
-        onSelect={setCategory}
-      />
+    <div>
+      <h2>Menu</h2>
 
-      <DishList
-        dishes={filteredDishes}
-        onAdd={handleAdd}
-      />
+      <div>
+        {categories.map((cat) => (
+          <button key={cat} onClick={() => setCategory(cat)}>
+            {cat}
+          </button>
+        ))}
+      </div>
 
-      <h2>Total: {total.toLocaleString()} ETB</h2>
-    </section>
+      {filteredDishes.map((dish) => (
+        <div key={dish.id}>
+          <h3>{dish.name}</h3>
+          <p>{dish.category}</p>
+          <p>{dish.price} ETB</p>
+
+          <button
+            onClick={() =>
+              dispatch({
+                type: "add",
+                item: dish,
+              })
+            }
+          >
+            Add to Cart
+          </button>
+
+          <button
+            onClick={() =>
+              dispatch({
+                type: "remove",
+                id: dish.id,
+              })
+            }
+          >
+            Remove
+          </button>
+        </div>
+      ))}
+
+      <hr />
+
+      <h2>Cart</h2>
+      <p>Items: {items.length}</p>
+      <p>Total: {total} ETB</p>
+
+      <button onClick={() => dispatch({ type: "clear" })}>
+        Clear Cart
+      </button>
+    </div>
   );
 }
 
